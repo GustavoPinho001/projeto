@@ -1,4 +1,4 @@
-const NotFound = ()=>{
+const NotFound = (): any=>{
     return(
     <div className="w-screen h-screen bg-gray-600 items-center flex justify-center ">
         <div>
