@@ -26,6 +26,7 @@ const Cadastro=(): any =>{
                 <input className="border"id="numero" type="text" />
                 <br/>
                 <button className="border ">enviar</button>
+                <button className="border ">enviar</button>
             </form>
         </div>
     </div>
