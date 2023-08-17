@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import './Scrollbar.css'
+import Header from "../../primario/header";
 
 interface Person {
   content: string;
@@ -8,6 +10,7 @@ interface Person {
 }
 
 const Cadastro: React.FC = () => {
+//------------------------------------------------------
   const [people, setPeople] = useState<Person[]>([]);
 
   const valoresIniciais: Person = {
@@ -22,7 +25,7 @@ const Cadastro: React.FC = () => {
     };
     setPeople([...people, newPerson]);
   };
-
+//------------------------------------------------------
   const navigateHome = useNavigate();
 
   const funcaosla = (): void => {
@@ -34,24 +37,14 @@ const Cadastro: React.FC = () => {
   const funcao = (): void => {
     navigate("/cadastro");
   };
+  const fapi =(): void => {
+    navigate ("/testeAPI")
+  }
 
+//------------------------------------------------------
   return (
-    <div className="flex h-screen w-screen bg-gray-300 flex-col">
-      <header className="flex h-28 items-center bg-slate-700">
-        <div className="flex justify-around w-full">
-          <h1 className="text-white font-bold text-[40px] ">
-            Projeto SLA
-          </h1>
-          <div className="flex  gap-7">
-            <button onClick={funcaosla} className="text-white font-bold text-[25px] hover:text-slate-300">
-              Home
-            </button>
-            <button onClick={funcao} className=" font-bold text-[25px] text-slate-300 border-b-[1px] border-b-slate-300">
-              cadastro
-            </button>
-          </div>
-        </div>
-      </header>
+    <div className="flex h-screen w-screen  bg-gray-300 flex-col">
+      <Header/>
       <div className="flex justify-between">
         <div className="flex flex-col-reverse justify-around w-[50%] box-border p-10 gap-4 items-center">
           <Formik initialValues={valoresIniciais} onSubmit={handleSub}>
@@ -118,15 +111,18 @@ const Cadastro: React.FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex w-[50%] flex-col text-center  p-10 ">
-          <ul className="flex gap-4 flex-col h-[80px] border-blue-100 border-dashed">
-            {people.map((person, index) => (
-              <li key={index} className="flex text-2xl p-10 bg-slate-400 justify-between items-center rounded-lg  h-[80px]">
-                <p className="text-white text-lg"><span className="text-black text-2xl">Nome</span>: {person.content}</p>  
-                <p className="text-white text-lg"><span className="text-black text-2xl">Numero</span>: {person.number}</p>
-              </li>
-            ))}
-          </ul>
+        <div className="flex w-[50%] flex-col text-center p-5">
+        <h1 className="text-2xl tracking-[10px]  ">Inscritos</h1>
+          <div className="flex w-[100%] h-[100%] flex-col text-center overflow-y-scroll  p-10 ">
+            <ul className="flex gap-4 flex-col h-[80px] ">           
+              {people.map((person, index) => (
+                <li key={index} className="flex text-2xl p-10 bg-slate-400 justify-between items-center rounded-lg  h-[80px]">
+                  <p className="text-white text-lg"><span className="text-black text-2xl">Nome</span>: {person.content}</p>
+                  <p className="text-white text-lg"><span className="text-black text-2xl">Numero</span>: {person.number}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
