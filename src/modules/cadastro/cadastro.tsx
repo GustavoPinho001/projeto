@@ -27,9 +27,18 @@ const Cadastro: React.FC = () => {
     email: "",
     senha:""
   };
-  const deletar = async (form : Person)=>{
-    const userDeleted: Person = await deleteUser(form.id)
+
+  const deletar = async (usuario : Person)=>{
+    setLoad(true)
+    const userDeleted: Person = await deleteUser(usuario.id).then((response)=> {
+      toast.success('Usuário excluído')
+      return response;
+    }).catch(()=> {
+      toast.error('Deu ruim')
+    })
+    setLoad(false)
   }
+
   const handleSub = async (form: Person) => {
     setLoad(true)
     const newPerson: Person = await createUser( form).then((person)=> {
@@ -126,19 +135,18 @@ const Cadastro: React.FC = () => {
             <ul className="flex gap-4 flex-col ">
               {peoples.map((person, index) => (
                 <li
-                  key={index}
+                  key={person.id}
                   className="flex text-2xl p-10 bg-[#03000050] justify-between items-center rounded-lg  h-[80px]"
                 >
                   <p className="text-white text-lg">
                     <span className=" text-white text-2xl">Nome</span>:{" "}
                     {person.name}
                   </p>
-                  <p>{person.id}</p>
                   <p className="text-white text-lg">
                     <span className=" text-2xl">Email</span>:{" "}
                     {person.email}
                   </p>
-                  <button onClick={deletar} >Deletar</button>
+                  <button onClick={() => deletar(person)}>Deletar</button>
                 </li>
               ))}
             </ul>
