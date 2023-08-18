@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./Scrollbar.css";
 import Header from "../../primario/header";
-import { createUser, getAllUsers } from "../../API/cobranca";
+import { createUser, deleteUser, getAllUsers } from "../../API/cobranca";
 import { toast } from "react-toastify";
 
 export interface Person {
-  id?: string,
+  id: string,
   name: string,
   email: string,
   senha: string,
@@ -22,13 +22,13 @@ const Cadastro: React.FC = () => {
   const [load, setLoad]=useState(false)
   const [numeroId, setNumeroId] =useState<Person>();
   const valoresIniciais: Person = {
+    id:"",
     name: "",
     email: "",
     senha:""
   };
-  const deletar = ()=>{
-    const userDeleted: person = await deleteUser ()
-    setNumeroId()
+  const deletar = async (form : Person)=>{
+    const userDeleted: Person = await deleteUser(form.id)
   }
   const handleSub = async (form: Person) => {
     setLoad(true)
@@ -48,14 +48,6 @@ const Cadastro: React.FC = () => {
     navigateHome("/");
   };
 
-  const navigate = useNavigate();
-
-  const funcao = (): void => {
-    navigate("/cadastro");
-  };
-  const fapi = (): void => {
-    navigate("/testeAPI");
-  };
 
   useEffect(()=>{
     (async () => {
@@ -146,7 +138,7 @@ const Cadastro: React.FC = () => {
                     <span className=" text-2xl">Email</span>:{" "}
                     {person.email}
                   </p>
-                  <button>Deletar</button>
+                  <button onClick={deletar} >Deletar</button>
                 </li>
               ))}
             </ul>
