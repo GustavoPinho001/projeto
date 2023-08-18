@@ -1,11 +1,11 @@
-
 import Header from "../../primario/header";
 
-const Home=(): any =>{
-  
+const Home = (): any => {
   return (
-    <Header/>
-    )
+    <div>
+      <Header />
+    </div>
+  );
 };
 
 export default Home;

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
+
 const Header=(): any =>{
     const navigateHome = useNavigate();
   
@@ -17,28 +18,31 @@ const Header=(): any =>{
     }
   
    
-      return (
-          <div className="flex h-screen w-screen bg-gray-300 flex-col">
-            <header className="flex h-28 items-center bg-slate-700">
-              <div className="flex justify-around w-full">
-                <h1 className="text-white font-bold text-[40px] ">
+      return (   
+            <header className="flex h-[5vh] items-center bg-[#0000006f]">
+              <div className="text-sm flex justify-around w-full">
+                <h1 className="text-white font-bold  ">
                   Projeto SLA
                 </h1>
-                <div className="flex  gap-7">
-                  <button onClick={funcaosla}  className="text-white font-bold text-[25px] hover:text-slate-300">
+                <div className="flex text-white font-bold  gap-7">
+                  <button onClick={funcaosla}  className="hover:text-slate-300">
                     Home
                   </button>
-                  <button onClick={funcao} className="text-white font-bold text-[25px] hover:text-slate-300">
+                  <button onClick={funcao} className="hover:text-slate-300">
                     cadastro
                   </button>
-                  <button onClick={fapi} className="  text-white font-bold text-[25px] hover:text-slate-300">
+                  <button  onClick={fapi} className="hover:text-slate-300">
                     TesteAPI
+                  </button>
+                  <button  className="hover:text-slate-300">
+                    contato
+                  </button>
+                  <button  className="hover:text-slate-300">
+                   sobre
                   </button>
                 </div>
               </div>
             </header>
-            
-          </div>
         );
   };
   

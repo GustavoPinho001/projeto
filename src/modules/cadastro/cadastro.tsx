@@ -1,31 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import './Scrollbar.css'
+import "./Scrollbar.css";
 import Header from "../../primario/header";
+import { createUser, getAllUsers } from "../../API/cobranca";
+import { toast } from "react-toastify";
 
-interface Person {
-  content: string;
-  number: string;
+export interface Person {
+  id?: string,
+  name: string,
+  email: string,
+  senha: string,
+
 }
 
+
+
 const Cadastro: React.FC = () => {
-//------------------------------------------------------
-  const [people, setPeople] = useState<Person[]>([]);
-
+  //------------------------------------------------------
+  const [peoples, setPeoples] = useState<Person[]>([]);
+  const [load, setLoad]=useState(false)
+  const [numeroId, setNumeroId] =useState<Person>();
   const valoresIniciais: Person = {
-    content: "",
-    number: "",
+    name: "",
+    email: "",
+    senha:""
   };
-
-  const handleSub = (form: Person) => {
-    const newPerson: Person = {
-      content: form.content,
-      number: form.number,
-    };
-    setPeople([...people, newPerson]);
+  const deletar = ()=>{
+    const userDeleted: person = await deleteUser ()
+    setNumeroId()
+  }
+  const handleSub = async (form: Person) => {
+    setLoad(true)
+    const newPerson: Person = await createUser( form).then((person)=> {
+      toast.success("Usuario criado com sucesso")
+      setLoad(false)
+      return person;
+    }).catch(()=> {
+      toast.error("deu ruim")
+        setLoad(false)
+    })
   };
-//------------------------------------------------------
+  //------------------------------------------------------
   const navigateHome = useNavigate();
 
   const funcaosla = (): void => {
@@ -37,95 +53,107 @@ const Cadastro: React.FC = () => {
   const funcao = (): void => {
     navigate("/cadastro");
   };
-  const fapi =(): void => {
-    navigate ("/testeAPI")
-  }
+  const fapi = (): void => {
+    navigate("/testeAPI");
+  };
 
-//------------------------------------------------------
+  useEffect(()=>{
+    (async () => {
+     
+        const response = await getAllUsers()
+        setPeoples(response)
+     
+    })();
+    
+  },[load])
+
+  //------------------------------------------------------
   return (
-    <div className="flex h-screen w-screen  bg-gray-300 flex-col">
-      <Header/>
-      <div className="flex justify-between">
-        <div className="flex flex-col-reverse justify-around w-[50%] box-border p-10 gap-4 items-center">
-          <Formik initialValues={valoresIniciais} onSubmit={handleSub}>
-            <Form className="flex p-2 flex-col gap-2 ">
-              <div className="flex flex-col gap-2">
-                <label htmlFor="content" className="text-slate-700">
-                  Nome
-                </label>
-                <Field
-                  className="border rounded-md bg-slate-400 text-white"
-                  type="text"
-                  required
-                  id="content"
-                  name="content"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="number" className="text-slate-700">
-                  Telefone
-                </label>
-                <Field
-                  className="border rounded-md bg-slate-400 text-white"
-                  type="number"
-                  id="number"
-                  required
-                  name="number"
-                />
-              </div>
-              <div className="flex justify-center pt-4">
-                <button
-                  type="submit"
-                  className="flex border rounded-md p-2 bg-gray-300 font-bold"
-                >
-                  Enviar
-                </button>
-              </div>
-            </Form>
-          </Formik>
-          <div className="text-center tracking-wider leading-10 text-xl">
-            <h1 className="text-2xl text-slate-700 ">TITULO ALEATORIO</h1>
+    <>
+      <Header />
+      <div className="flex h-[95vh] justify-around ">
+        <div className="flex w-[50%] justify-around flex-col items-center">
+          <div className="text-center tracking-wider text-white leading-10">
+            <h1 className="">TITULO ALEATORIO</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Temporibus possimus asperiores maiores molestias quam. Nam dolores
               error veritatis corporis minima mollitia nobis, recusandae
               quaerat? Dolores expedita non nulla vel corrupti?
             </p>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Distinctio nulla accusamus sunt incidunt quis inventore debitis at
-              natus sed odit, exercitationem qui! Alias dolores ad suscipit qui
-              recusandae perferendis debitis?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia
-              modi voluptate cum impedit excepturi possimus in quaerat molestiae
-              ipsum esse, totam soluta maxime, perferendis natus omnis suscipit
-              fuga libero quam?
-            </p>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Doloribus vitae non sed, repellendus maiores labore magni neque
-              perspiciatis expedita nihil rerum animi repudiandae facere
-              voluptate voluptatum saepe modi. Facere, porro?
-            </p>
           </div>
+          <Formik initialValues={valoresIniciais} onSubmit={handleSub}>
+            <Form className="">
+              <div className="flex flex-col text-white gap-5">
+                <label htmlFor="name" className="text-white">
+                  name
+                </label>
+                <Field
+                  className="border rounded-md bg-transparent "
+                  type="text"
+                  required
+                  id="name"
+                  name="name"
+                />
+
+                <label htmlFor="email" className="">
+                  Email
+                </label>
+                <Field
+                  className="border rounded-md bg-transparent "
+                  type="email"
+                  id="email"
+                  required
+                  name="email"
+                />
+                <label htmlFor="senha" className="">
+                  senha
+                </label>
+                <Field
+                  className="border rounded-md bg-transparent "
+                  type="password"
+                  id="senha"
+                  required
+                  name="senha"
+                />
+                <button
+
+                  type="submit"
+                  disabled={load}
+                  className="border rounded-md p-2 bg-[#0000006f]"
+                >
+                  Enviar
+                </button>
+              </div>
+            </Form>
+          </Formik>
         </div>
         <div className="flex w-[50%] flex-col text-center p-5">
-        <h1 className="text-2xl tracking-[10px]  ">Inscritos</h1>
-          <div className="flex w-[100%] h-[100%] flex-col text-center overflow-y-scroll  p-10 ">
-            <ul className="flex gap-4 flex-col h-[80px] ">           
-              {people.map((person, index) => (
-                <li key={index} className="flex text-2xl p-10 bg-slate-400 justify-between items-center rounded-lg  h-[80px]">
-                  <p className="text-white text-lg"><span className="text-black text-2xl">Nome</span>: {person.content}</p>
-                  <p className="text-white text-lg"><span className="text-black text-2xl">Numero</span>: {person.number}</p>
+          <h1 className="text-2xl tracking-[10px] text-white  ">Inscritos</h1>
+          <div className="flex flex-col text-center text-white overflow-y-scroll  p-10 ">
+            <ul className="flex gap-4 flex-col ">
+              {peoples.map((person, index) => (
+                <li
+                  key={index}
+                  className="flex text-2xl p-10 bg-[#03000050] justify-between items-center rounded-lg  h-[80px]"
+                >
+                  <p className="text-white text-lg">
+                    <span className=" text-white text-2xl">Nome</span>:{" "}
+                    {person.name}
+                  </p>
+                  <p>{person.id}</p>
+                  <p className="text-white text-lg">
+                    <span className=" text-2xl">Email</span>:{" "}
+                    {person.email}
+                  </p>
+                  <button>Deletar</button>
                 </li>
               ))}
             </ul>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
