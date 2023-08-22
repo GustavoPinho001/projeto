@@ -48,8 +48,7 @@ const Cadastro: React.FC = () => {
         setLoad(false);
         return person;
       })
-      .catch((person) => {
-        return person;
+      .catch(() => {
         toast.error("deu ruim");
         setLoad(false);
       });
@@ -76,7 +75,7 @@ const Cadastro: React.FC = () => {
               <div className=" text-center text-slate-900 text-3xl">
                 <h1>Cadastre-se</h1>
               </div>          
-              <Formik initialValues={valoresIniciais} onSubmit={handleSub}>
+            <Formik initialValues={valoresIniciais} onSubmit={handleSub}>
                 <Form className="flex flex-col font-medium text-xl  text-black gap-5">
                   <div className="flex justify-around gap-4">
                     <div>
@@ -84,7 +83,7 @@ const Cadastro: React.FC = () => {
                     </div>
                     <div>
                       <Field
-                        className="border border-gray-900 text-center rounded-md bg-transparent "
+                        className="border border-gray-900 p-2 text-center rounded-md bg-transparent "
                         type="text"
                         required
                         id="name"
@@ -101,7 +100,7 @@ const Cadastro: React.FC = () => {
                     <div>
                       {" "}
                       <Field
-                        className="border border-gray-900 text-center rounded-md bg-transparent "
+                        className="border border-gray-900 text-center p-2 rounded-md bg-transparent "
                         type="email"
                         id="email"
                         required
@@ -117,7 +116,7 @@ const Cadastro: React.FC = () => {
                     </div>
                     <div>
                       <Field
-                        className="border border-gray-900 text-center rounded-md bg-transparent "
+                        className="border border-gray-900 text-center p-2 rounded-md bg-transparent "
                         type="password"
                         id="senha"
                         required

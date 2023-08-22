@@ -22,3 +22,9 @@ export async function deleteUser(id: string) {
   return response.data
     
 }
+
+export async function login( form:Person) {
+  const response = await axios.post(`http://ti20:8080/login/`, {senha:form.senha, email:form.email, headers:{authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiZ3VzdGF2b2Rhc2lsdmFwaW5obzhAZ21haWwuY29tIiwibmFtZSI6Ikd1c3Rhdm8gUGluaG8iLCJpYXQiOjE2OTI3MDMzMjUsImV4cCI6MTY5MjcxNDEyNX0.5rBD65mopb63DUpKnOwTba1Rde71QIoY4aMrVrkGHcU"}} )
+  
+  return response.data
+}
