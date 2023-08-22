@@ -1,18 +1,24 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "./modules/Home/home";
 import Cadastro from "./modules/cadastro/cadastro";
 import NotFound from "./modules/error/NotFound";
-import TesteAPI from "./modules/testeApi/TesteAPI";
+import Contato from './modules/contato/contato';
 
-export function App() {
+const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Home />} path="/" />
-        <Route element={<Cadastro />} path="/cadastro" />
-        <Route element={<NotFound/>} path="*"/>
-        <Route element={<TesteAPI/>} path="/testeAPI"/>
-      </Routes>
-    </BrowserRouter>
+    <Router>
+      <div className="app">
+        <Routes>
+          <Route>
+            <Route element={<Home />} path='/' />
+            <Route path="/cadastro" element={<Cadastro />} />
+            <Route path="/not-found" element={<NotFound />} />
+            <Route path="/contato" element={<Contato />} />
+          </Route>
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
+
+export default App;

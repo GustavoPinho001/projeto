@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../primario/header";
 
 
-const TesteAPI = (): any => {
+const Contato = (): any => {
     const navigateHome = useNavigate();
 
 
@@ -21,7 +21,12 @@ const TesteAPI = (): any => {
   
 }
     return(
-        <Header/>
+    <>  
+      <Header/>
+      <div>
+        <h1 className="text-white">oi né</h1>
+      </div>
+    </>
     );
 }
-export default TesteAPI;
+export default Contato;

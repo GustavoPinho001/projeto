@@ -5,10 +5,10 @@
 
 
 body{   
-    font-family: 'Raleway', sans-serif;
-    background-image: url(./assets/fotofundo.jpg);
-    background-size: cover;
-    background-position: center;
+    font-family: 'Montserrat Alternates', sans-serif;
+    background-image: url('assets/fotoFundo.png');
+    background-size:cover;
+    background-position: center center;
     background-repeat: no-repeat;
     width: 100vw;
     height: 100vh;

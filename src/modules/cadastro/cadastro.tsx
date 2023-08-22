@@ -5,153 +5,142 @@ import "./Scrollbar.css";
 import Header from "../../primario/header";
 import { createUser, deleteUser, getAllUsers } from "../../API/cobranca";
 import { toast } from "react-toastify";
+import Logo from "../../primario/logo";
 
 export interface Person {
-  id: string,
-  name: string,
-  email: string,
-  senha: string,
-
+  id: string;
+  name: string;
+  email: string;
+  senha: string;
 }
-
-
 
 const Cadastro: React.FC = () => {
   //------------------------------------------------------
   const [peoples, setPeoples] = useState<Person[]>([]);
-  const [load, setLoad]=useState(false)
-  const [numeroId, setNumeroId] =useState<Person>();
+  const [load, setLoad] = useState(false);
+  const [numeroId, setNumeroId] = useState<Person>();
   const valoresIniciais: Person = {
-    id:"",
+    id: "",
     name: "",
     email: "",
-    senha:""
+    senha: "",
   };
 
-  const deletar = async (usuario : Person)=>{
-    setLoad(true)
-    const userDeleted: Person = await deleteUser(usuario.id).then((response)=> {
-      toast.success('Usuário excluído')
-      return response;
-    }).catch(()=> {
-      toast.error('Deu ruim')
-    })
-    setLoad(false)
-  }
+  const deletar = async (usuario: Person) => {
+    setLoad(true);
+    const userDeleted: Person = await deleteUser(usuario.id)
+      .then((response) => {
+        toast.success("usuario deletado");
+        setLoad(false);
+        return response;
+      })
+      .catch(() => {
+        toast.error("deu ruim");
+        setLoad(false);
+      });
+  };
 
   const handleSub = async (form: Person) => {
-    setLoad(true)
-    const newPerson: Person = await createUser( form).then((person)=> {
-      toast.success("Usuario criado com sucesso")
-      setLoad(false)
-      return person;
-    }).catch(()=> {
-      toast.error("deu ruim")
-        setLoad(false)
-    })
+    setLoad(true);
+    const newPerson: Person = await createUser(form)
+      .then((person) => {
+        toast.success("Usuario criado com sucesso");
+        setLoad(false);
+        return person;
+      })
+      .catch((person) => {
+        return person;
+        toast.error("deu ruim");
+        setLoad(false);
+      });
   };
   //------------------------------------------------------
-  const navigateHome = useNavigate();
 
-  const funcaosla = (): void => {
-    navigateHome("/");
-  };
-
-
-  useEffect(()=>{
+  useEffect(() => {
     (async () => {
-     
-        const response = await getAllUsers()
-        setPeoples(response)
-     
+      const response = await getAllUsers();
+      setPeoples(response);
     })();
-    
-  },[load])
+  }, [load]);
 
   //------------------------------------------------------
   return (
     <>
       <Header />
-      <div className="flex h-[95vh] justify-around ">
-        <div className="flex w-[50%] justify-around flex-col items-center">
-          <div className="text-center tracking-wider text-white leading-10">
-            <h1 className="">TITULO ALEATORIO</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus possimus asperiores maiores molestias quam. Nam dolores
-              error veritatis corporis minima mollitia nobis, recusandae
-              quaerat? Dolores expedita non nulla vel corrupti?
-            </p>
-          </div>
-          <Formik initialValues={valoresIniciais} onSubmit={handleSub}>
-            <Form className="">
-              <div className="flex flex-col text-white gap-5">
-                <label htmlFor="name" className="text-white">
-                  name
-                </label>
-                <Field
-                  className="border rounded-md bg-transparent "
-                  type="text"
-                  required
-                  id="name"
-                  name="name"
-                />
-
-                <label htmlFor="email" className="">
-                  Email
-                </label>
-                <Field
-                  className="border rounded-md bg-transparent "
-                  type="email"
-                  id="email"
-                  required
-                  name="email"
-                />
-                <label htmlFor="senha" className="">
-                  senha
-                </label>
-                <Field
-                  className="border rounded-md bg-transparent "
-                  type="password"
-                  id="senha"
-                  required
-                  name="senha"
-                />
-                <button
-
-                  type="submit"
-                  disabled={load}
-                  className="border rounded-md p-2 bg-[#0000006f]"
-                >
-                  Enviar
-                </button>
-              </div>
-            </Form>
-          </Formik>
+      <div className="h-[91vh] flex flex-col justify-between">
+        <div className="flex h-[91vh] items-center  ">
+          <section className="flex w-[50%]  h-[100%] bg-[#000000cc] justify-around items-center rounded-lg flex-col ">
+            <Logo/>
+          </section>
+          <section className=" w-[50%] h-[100%] p-10 items-center justify-center rounded-lg flex flex-col gap-7 bg-[#ddddffcc] py-16">
+              <div className=" text-center text-slate-900 text-3xl">
+                <h1>Cadastre-se</h1>
+              </div>          
+              <Formik initialValues={valoresIniciais} onSubmit={handleSub}>
+                <Form className="flex flex-col font-medium text-xl  text-black gap-5">
+                  <div className="flex justify-around gap-4">
+                    <div>
+                      <label htmlFor="name">name </label>
+                    </div>
+                    <div>
+                      <Field
+                        className="border border-gray-900 text-center rounded-md bg-transparent "
+                        type="text"
+                        required
+                        id="name"
+                        name="name"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-around gap-4">
+                    <div>
+                      <label htmlFor="email" className="">
+                        Email
+                      </label>
+                    </div>
+                    <div>
+                      {" "}
+                      <Field
+                        className="border border-gray-900 text-center rounded-md bg-transparent "
+                        type="email"
+                        id="email"
+                        required
+                        name="email"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-around gap-4">
+                    <div>
+                      <label htmlFor="senha" className="">
+                        senha
+                      </label>
+                    </div>
+                    <div>
+                      <Field
+                        className="border border-gray-900 text-center rounded-md bg-transparent "
+                        type="password"
+                        id="senha"
+                        required
+                        name="senha"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={load}
+                    className="border text-white rounded-md p-2 bg-[#000000cc] hover:bg-slate-700"
+                  >
+                    Enviar
+                  </button>
+                </Form>
+              </Formik>
+          </section>
         </div>
-        <div className="flex w-[50%] flex-col text-center p-5">
-          <h1 className="text-2xl tracking-[10px] text-white  ">Inscritos</h1>
-          <div className="flex flex-col text-center text-white overflow-y-scroll  p-10 ">
-            <ul className="flex gap-4 flex-col ">
-              {peoples.map((person, index) => (
-                <li
-                  key={person.id}
-                  className="flex text-2xl p-10 bg-[#03000050] justify-between items-center rounded-lg  h-[80px]"
-                >
-                  <p className="text-white text-lg">
-                    <span className=" text-white text-2xl">Nome</span>:{" "}
-                    {person.name}
-                  </p>
-                  <p className="text-white text-lg">
-                    <span className=" text-2xl">Email</span>:{" "}
-                    {person.email}
-                  </p>
-                  <button onClick={() => deletar(person)}>Deletar</button>
-                </li>
-              ))}
-            </ul>
+        <footer className="bg-gray-900 text-white py-8">
+          <div className="container mx-auto text-center">
+            &copy; 2023 melhorzin que ta teno mas o zoro sola.
           </div>
-        </div>
+        </footer>
       </div>
     </>
   );

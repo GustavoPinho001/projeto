@@ -5,16 +5,16 @@
   
   /* Estiliza o thumb (alça) da barra de rolagem */
   ::-webkit-scrollbar-thumb {
-    background-color: #1d1ae7;
+    background-color: #e71a1a;
     border-radius: 3px;
   }
   
   /* Estiliza o thumb quando estiver sendo arrastado/hover */
   ::-webkit-scrollbar-thumb:hover {
-    background-color: #ab09f7;
+    background-color: #4f0505;
   }
   
   /* Estiliza a trilha (background) da barra de rolagem */
   ::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
+    background-color: #e1adad;
   }
