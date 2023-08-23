@@ -5,6 +5,8 @@ import NotFound from "./modules/error/NotFound";
 import Contato from "./modules/contato/contato";
 import Login from "./modules/loginTela/login";
 import PrivateRoute from "./modules/private";
+import ContactPage from "./modules/contato/contato";
+import Inscritos from "./modules/inscritos/inscritos"
 
 const App: React.FC = () => {
   return (
@@ -12,10 +14,12 @@ const App: React.FC = () => {
       <div className="app">
         <Routes>
           <Route>
-            <Route element={<Login />} path="/" />
+            {/* <Route path="/" element={<Login />} /> */}
+            <Route path="/" element={<Home/>}/>
             <Route path="/cadastro" element={<Cadastro />} />
-            <Route path="/not-found" element={<NotFound />} />
-            <Route path="/contato" element={<Contato />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/contato" element={<ContactPage />} />
+            <Route path="/inscritos"element={<Inscritos/>}/>
           </Route>
         </Routes>
       </div>
