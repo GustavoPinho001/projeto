@@ -5,17 +5,16 @@ import { toast } from "react-toastify";
 
 
 interface People {
-  id: number;
+  id: string;
   name: string;
   email: string;
   senha: string;
 }
-interface Users {
-  id:string
-}
+
 
 const Inscritos = () => {
   const [peoples, setPeoples] = useState<People[]>([]); // Use o tipo People[]
+  const [idUser, setidUser]=useState <People[]>()
 
   const navigate = useNavigate();
   
@@ -38,9 +37,10 @@ const Inscritos = () => {
       console.error("Error fetching users:", error);
     }
   };
-    const deletar = async (usuario: Users) => {
+    const deletar = async (usuario: People) => {
+    const id = usuario.id
     
-    const userDeleted = await deleteUser(usuario.id)
+    const response = await deleteUser(id)
       .then((response) => {
         toast.success("usuario deletado");
         
@@ -72,12 +72,12 @@ const Inscritos = () => {
       </div>
       <div className="h-[91vh] flex bg-white flex-col justify-between">
         <div className=" w-full overflow-y-scroll">
-          {peoples?.map((item: People, index) => (
+          {peoples?.map((item: People, index)  => (
             <div key={index} className="mb-4 border p-4 rounded shadow">
               <h2 className="text-xl font-semibold">{item.name}</h2>
               <p className="text-gray-600">{item.email}</p>
               <div className="mt-2">
-                <button onClick={()=>deletar(item.id)} className="bg-red-500 text-white px-2 py-1 rounded mr-2">
+                <button onClick={()=>deletar(item)} className="bg-red-500 text-white px-2 py-1 rounded mr-2">
                   Deletar
                 </button>
                 <button className="bg-blue-500 text-white px-2 py-1 rounded">

@@ -12,7 +12,7 @@ import Login from "./modules/loginTela/login";
 import PrivateRoute from "./modules/private";
 import ContactPage from "./modules/contato/contato";
 import Inscritos from "./modules/inscritos/inscritos";
-import Deletar from "./modules/deletar/deletar";
+
 
 const App: React.FC = () => {
   return (
@@ -47,7 +47,6 @@ const App: React.FC = () => {
                 </PrivateRoute>
               }
             />
-            <Route path="deletar" element={<Deletar />} />
           </Route>
         </Routes>
       </div>
