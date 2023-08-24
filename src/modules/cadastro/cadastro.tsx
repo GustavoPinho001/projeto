@@ -16,8 +16,8 @@ export interface Person {
 
 const Cadastro: React.FC = () => {
   //------------------------------------------------------
-  const [peoples, setPeoples] = useState<Person[]>([]);
   const [load, setLoad] = useState(false);
+  const navigate = useNavigate();
   const valoresIniciais: Person = {
     id: "",
     name: "",
@@ -25,19 +25,10 @@ const Cadastro: React.FC = () => {
     senha: "",
   };
 
-  const deletar = async (usuario: Person) => {
-    setLoad(true);
-    const userDeleted: Person = await deleteUser(usuario.id)
-      .then((response) => {
-        toast.success("usuario deletado");
-        setLoad(false);
-        return response;
-      })
-      .catch(() => {
-        toast.error("deu ruim");
-        setLoad(false);
-      });
-  };
+
+  const toLog= ()=>{
+    navigate('/login')
+  }
 
   const handleSub = async (form: Person) => {
     setLoad(true);
@@ -57,9 +48,8 @@ const Cadastro: React.FC = () => {
   //------------------------------------------------------
   return (
     <>
-      <Header />
-      <div className="h-[91vh] flex flex-col justify-between">
-        <div className="flex h-[91vh] items-center  ">
+      <div className="h-screen flex flex-col justify-between">
+        <div className="flex h-[100%] items-center  ">
           <section className="flex w-[50%]  h-[100%] bg-[#000000cc] justify-around items-center rounded-lg flex-col ">
             <Logo />
           </section>
@@ -123,6 +113,7 @@ const Cadastro: React.FC = () => {
                 >
                   Enviar
                 </button>
+                <button onClick={toLog} className="border text-white rounded-md p-2 bg-[#000000cc] hover:bg-slate-700">back tolog-in</button>
               </Form>
             </Formik>
           </section>

@@ -4,9 +4,12 @@ import { useState } from "react";
 import axios from "axios";
 import { login } from "../../API/cobranca";
 import { toast } from "react-toastify";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const[newLogin, setNewLogin]=useState()
+    const navigate = useNavigate();
+
     const valoresIniciais:any = {
         id: "",
         name: "",
@@ -14,10 +17,15 @@ const Login = () => {
         senha: "",
       };
 
+      const toCad =()=>{
+        navigate('/cadastro')
+      }
       const hundleLogin = async (form : Person) => {
         try {
             const response = await login(form);            
             toast.success ('logado com sucesso');
+            // window.location.replace('/')
+            navigate('/')
             localStorage.setItem("token", response.token);
         } catch (error) {
             console.log(error);
@@ -48,8 +56,11 @@ const Login = () => {
             name="senha"
           />
           <button className="border p-2 rounded-md" type="submit">Enviar</button>
-        </Form>
+          <button className="border p-2 rounded-md" onClick={toCad} >Cadastrar-se</button>
+
+          </Form>
       </Formik>
+          
     </div>
   );
 };

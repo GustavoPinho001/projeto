@@ -7,15 +7,12 @@ const Header=(): any =>{
     const funcaosla = (): void => {
       navigate("/");
     };
-  
-  
-    const funcao = (): void => {
-      navigate("/cadastro");
-    };
     const fapi =(): void => {
       navigate ("/contato")
     }
-  
+    const toIns = ()=>{
+      navigate('inscritos')
+    }
    
       return (   
             <header className="flex h-[9vh] items-center bg-[#0000002f]">
@@ -29,12 +26,9 @@ const Header=(): any =>{
                   </button>
                   <button onClick={fapi}  className="hover:text-slate-500">
                     contato
-                  </button>
-                  <button  className="hover:text-slate-500">
-                      sobre
-                  </button>
-                  <button onClick={funcao} className=" rounded-xl p-3 text-black bg-red-500 hover:bg-red-600 hover:text-white active:bg-slate-500">
-                    Cadastre-se
+                  </button>                
+                  <button onClick={toIns}  className="hover:text-slate-500">
+                      inscritos
                   </button>
                 </div>
               </div>
