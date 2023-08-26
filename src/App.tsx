@@ -7,11 +7,12 @@ import {
 import Home from "./modules/Home/home";
 import Cadastro from "./modules/cadastro/cadastro";
 import NotFound from "./modules/error/NotFound";
-import Contato from "./modules/contato/contato";
 import Login from "./modules/loginTela/login";
 import PrivateRoute from "./modules/private";
 import ContactPage from "./modules/contato/contato";
 import Inscritos from "./modules/inscritos/inscritos";
+import TelaUp from "./modules/updateUser/updateUser";
+
 
 
 const App: React.FC = () => {
@@ -44,6 +45,14 @@ const App: React.FC = () => {
               element={
                 <PrivateRoute>
                   <Inscritos />
+                </PrivateRoute>
+              }
+            />
+             <Route
+              path="/updateUser/:id"
+              element={
+                <PrivateRoute>
+                  <TelaUp/>
                 </PrivateRoute>
               }
             />

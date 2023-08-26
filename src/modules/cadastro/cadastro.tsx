@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import Logo from "../../primario/logo";
 
 export interface Person {
-  id: string;
+  id: string | number;
   name: string;
   email: string;
   senha: string;

@@ -18,6 +18,12 @@ const Inscritos = () => {
 
   const navigate = useNavigate();
   
+  const toUpdate =(id:string)=>{
+
+    navigate(`/updateUser/${id}`)
+  }
+  
+  
   const funcaosla = (): void => {
     navigate("/");
   };
@@ -27,7 +33,9 @@ const Inscritos = () => {
   const toIns = () => {
     navigate("inscritos");
   };
-
+  
+  
+  
   const getUser = async () => {
     try {
       const response = await getAllUsers();
@@ -80,7 +88,7 @@ const Inscritos = () => {
                 <button onClick={()=>deletar(item)} className="bg-red-500 text-white px-2 py-1 rounded mr-2">
                   Deletar
                 </button>
-                <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                <button onClick={()=>toUpdate(item.id)} className="bg-blue-500 text-white px-2 py-1 rounded">
                   Atualizar
                 </button>
               </div>

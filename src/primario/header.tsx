@@ -11,7 +11,7 @@ const Header=(): any =>{
       navigate ("/contato")
     }
     const toIns = ()=>{
-      navigate('inscritos')
+      navigate('/inscritos')
     }
    
       return (   
