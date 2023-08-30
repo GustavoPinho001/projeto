@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import Header from "../../primario/header";
 import { getAllProductsAPI } from "../../API/cobranca";
+import {  useNavigate } from "react-router-dom";
 interface Produtos {
-    name: string,
+  name: string,
 	description: string,
 	price: number,
 }
 
 
-const produtos = () => {
+const Produtos = () => {
+  const navigate = useNavigate();
  const [products, setProducts]=useState<Produtos[]>([])
 
  const getProducts = async () => {
@@ -25,6 +27,10 @@ const produtos = () => {
     getProducts();
   }, []);
 
+  const toEditProdutc = ()=>{
+    navigate('/updateProduct')
+  }
+
 
   return (
     <>
@@ -40,6 +46,7 @@ const produtos = () => {
                 <h2>{items.name}</h2>
                 <p>{items.description}</p>
                 <p>{items.price}</p>
+                <button onSubmit={toEditProdutc}>Alterar</button>
             </div>          
           ))} 
         </div>
@@ -49,4 +56,4 @@ const produtos = () => {
   );
 };
 
-export default produtos;
+export default Produtos;

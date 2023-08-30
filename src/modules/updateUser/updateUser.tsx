@@ -20,9 +20,7 @@ const TelaUp = () => {
   const { id } = useParams();
   console.log(id);
 
-  const getUser = async () => {
-    return await getUserApi(id as string);
-  };
+
 
   async function submit(params: Personup) {
     console.log(params);

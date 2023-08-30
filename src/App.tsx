@@ -14,6 +14,8 @@ import Inscritos from "./modules/inscritos/inscritos";
 import TelaUp from "./modules/updateUser/updateUser";
 import Produtos from "./modules/produtos/produtos";
 import ProductForm from "./modules/addprodutos/addprodutos";
+import upProduct from "./modules/updateProduct/upProduct"
+import UpProduct from "./modules/updateProduct/upProduct";
 
 
 
@@ -75,6 +77,15 @@ const App: React.FC = () => {
                 </PrivateRoute>
               }
             />
+             <Route
+              path="/updateProduct"
+              element={
+                <PrivateRoute>
+                  <UpProduct/>
+                </PrivateRoute>
+              }
+            />
+
         </Routes>
       </div>
     </BrowserRouter>
