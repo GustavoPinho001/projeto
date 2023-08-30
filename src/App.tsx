@@ -12,6 +12,8 @@ import PrivateRoute from "./modules/private";
 import ContactPage from "./modules/contato/contato";
 import Inscritos from "./modules/inscritos/inscritos";
 import TelaUp from "./modules/updateUser/updateUser";
+import Produtos from "./modules/produtos/produtos";
+import ProductForm from "./modules/addprodutos/addprodutos";
 
 
 
@@ -57,6 +59,22 @@ const App: React.FC = () => {
               }
             />
           </Route>
+          <Route
+              path="/produtos"
+              element={
+                <PrivateRoute>
+                  <Produtos/>
+                </PrivateRoute>
+              }
+            />
+                <Route
+              path="/addprodutos"
+              element={
+                <PrivateRoute>
+                  <ProductForm/>
+                </PrivateRoute>
+              }
+            />
         </Routes>
       </div>
     </BrowserRouter>
