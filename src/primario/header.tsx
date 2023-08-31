@@ -13,6 +13,9 @@ const Header=(): any =>{
     const toIns = ()=>{
       navigate('/inscritos')
     }
+    const toPro = ()=> {
+      navigate ('/produtos')
+    }
    
       return (   
             <header className="flex h-[9vh] items-center bg-[#0000002f]">
@@ -29,6 +32,9 @@ const Header=(): any =>{
                   </button>                
                   <button onClick={toIns}  className="hover:text-slate-500">
                       inscritos
+                  </button>
+                  <button onClick={toPro}  className="hover:text-slate-500">
+                      Produtos
                   </button>
                 </div>
               </div>

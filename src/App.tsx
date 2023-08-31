@@ -5,17 +5,17 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 import Home from "./modules/Home/home";
-import Cadastro from "./modules/cadastro/cadastro";
+import Cadastro from "./modules/USUARIOS/cadastro/cadastro";
 import NotFound from "./modules/error/NotFound";
-import Login from "./modules/loginTela/login";
+import Login from "./modules/USUARIOS/loginTela/login";
 import PrivateRoute from "./modules/private";
 import ContactPage from "./modules/contato/contato";
-import Inscritos from "./modules/inscritos/inscritos";
-import TelaUp from "./modules/updateUser/updateUser";
-import Produtos from "./modules/produtos/produtos";
-import ProductForm from "./modules/addprodutos/addprodutos";
-import upProduct from "./modules/updateProduct/upProduct"
-import UpProduct from "./modules/updateProduct/upProduct";
+import Inscritos from "./modules/USUARIOS/inscritos/inscritos";
+import TelaUp from "./modules/USUARIOS/updateUser/updateUser";
+import Produtos from "./modules/PRODUTOS/produtos/produtos";
+import ProductForm from "./modules/PRODUTOS/addprodutos/addprodutos";
+import UpProduct from "./modules/PRODUTOS/updateProduct/upProduct";
+
 
 
 
@@ -78,14 +78,13 @@ const App: React.FC = () => {
               }
             />
              <Route
-              path="/updateProduct"
+              path="/updateProduct/:id"
               element={
                 <PrivateRoute>
                   <UpProduct/>
                 </PrivateRoute>
               }
             />
-
         </Routes>
       </div>
     </BrowserRouter>

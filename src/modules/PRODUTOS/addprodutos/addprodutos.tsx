@@ -1,7 +1,8 @@
 import { Field, Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import React, { useState } from 'react';
-import { addProductsAPI } from '../../API/cobranca';
-import Header from '../../primario/header';
+import { addProductsAPI } from '../../../API/cobranca';
+import Header from '../../../primario/header';
+import { toast } from 'react-toastify';
 
 export interface Product {
   name: string;
@@ -17,8 +18,13 @@ const ProductForm: React.FC = () => {
         price:0, 
       };
   const handleSubmit= async (form :Product)=>{
+    try {
+    toast.success('deu bom')
     const response = await addProductsAPI(form)
     console.log(response)
+    }catch(error){
+      toast.error('deu ruim')
+    }
   }
 
   return (

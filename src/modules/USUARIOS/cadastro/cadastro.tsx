@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./Scrollbar.css";
-import Header from "../../primario/header";
-import { createUser, deleteUser, getAllUsers } from "../../API/cobranca";
+import Header from "../../../primario/header";
+import { createUser, deleteUser, getAllUsers } from "../../../API/cobranca";
 import { toast } from "react-toastify";
-import Logo from "../../primario/logo";
+import Logo from "../../../primario/logo";
 
 export interface Person {
   id: string | number;

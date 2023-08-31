@@ -2,7 +2,7 @@ import { Field, Form, Formik } from "formik";
 import { Person } from "../cadastro/cadastro";
 import { useState } from "react";
 import axios from "axios";
-import { login } from "../../API/cobranca";
+import { login } from "../../../API/cobranca";
 import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 
@@ -27,7 +27,7 @@ const Login = () => {
             // window.location.replace('/')
             navigate('/')
             localStorage.setItem("token", response.token);
-        } catch (error) {
+          } catch (error) {
             console.log(error);
             toast.error('deu ruim');
         }

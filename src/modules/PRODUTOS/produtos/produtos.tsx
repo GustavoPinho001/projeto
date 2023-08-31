@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import Header from "../../primario/header";
-import { getAllProductsAPI } from "../../API/cobranca";
+import Header from "../../../primario/header";
+import { getAllProductsAPI } from "../../../API/cobranca";
 import {  useNavigate } from "react-router-dom";
 interface Produtos {
+  id: string,
   name: string,
 	description: string,
 	price: number,
@@ -10,7 +11,7 @@ interface Produtos {
 
 
 const Produtos = () => {
-  const navigate = useNavigate();
+const navigate = useNavigate();
  const [products, setProducts]=useState<Produtos[]>([])
 
  const getProducts = async () => {
@@ -27,8 +28,8 @@ const Produtos = () => {
     getProducts();
   }, []);
 
-  const toEditProdutc = ()=>{
-    navigate('/updateProduct')
+  const toEditProdutc = (id: string)=>{
+    navigate(`/updateProduct/${id}`)
   }
 
 
@@ -46,10 +47,12 @@ const Produtos = () => {
                 <h2>{items.name}</h2>
                 <p>{items.description}</p>
                 <p>{items.price}</p>
-                <button onSubmit={toEditProdutc}>Alterar</button>
+                <button onClick={()=>{toEditProdutc(items.id)}} className="border rounded-md bg-white">Alterar</button>
+                
             </div>          
           ))} 
         </div>
+        
         </div>
       </div>
     </>
