@@ -2,9 +2,9 @@ import { Field, Form, Formik } from "formik";
 import { Person } from "../cadastro/cadastro";
 import { useState } from "react";
 import axios from "axios";
-import { login } from "../../../API/cobranca";
 import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
+import { login } from "../../../API/users";
 
 const Login = () => {
     const[newLogin, setNewLogin]=useState()

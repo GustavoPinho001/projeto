@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Header from "../../../primario/header";
-import { getAllProductsAPI } from "../../../API/cobranca";
+import { getAllProductsAPI } from "../../../API/products";
 import {  useNavigate } from "react-router-dom";
 interface Produtos {
   id: string,
   name: string,
 	description: string,
 	price: number,
+  images:string
 }
 
 
@@ -28,35 +29,40 @@ const navigate = useNavigate();
     getProducts();
   }, []);
 
-  const toEditProdutc = (id: string)=>{
+  const toEditProduct = (id: string)=>{
     navigate(`/updateProduct/${id}`)
   }
 
 
   return (
-    <>
+    <div>
       <Header />
-      <div className="flex items-center justify-center h-[91vh] w-screen">
-        <div className="items-center bg-white flex justify-center h-full w-full">
-          <div className="grid grid-cols-4 gap-4">
-          {products?.map((items, index)  => (
-            <div key={index} className=" flex flex-col items-center p-5  bg-[#EBD8E4]" >
-                <div className="w-20 h-20 text-center bg-black">
-                    imagem
+      <div className="flex items-center justify-center h-[93.5vh] bg-gray-100">
+        <div className="container mx-auto py-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {products?.map((item, index) => (
+              <div key={index} className="border rounded-t-lg bg-white">
+                <div className=" flex items-center justify-center rounded-t-lg ">
+                  <img src={item.images} alt="" className="h-full w-full"/>
                 </div>
-                <h2>{items.name}</h2>
-                <p>{items.description}</p>
-                <p>{items.price}</p>
-                <button onClick={()=>{toEditProdutc(items.id)}} className="border rounded-md bg-white">Alterar</button>
-                
-            </div>          
-          ))} 
-        </div>
-        
+                <h2 className="text-lg font-semibold">{item.name}</h2>
+                <p className="text-sm text-gray-500 mb-2">{item.description}</p>
+                <p className="text-base font-semibold text-gray-800">${item.price.toFixed(2)}</p>
+                <button
+                  onClick={() => {
+                    toEditProduct(item.id);
+                  }}
+                  className="mt-4 px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 focus:outline-none"
+                >
+                  Alterar
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
-};
+}
 
 export default Produtos;

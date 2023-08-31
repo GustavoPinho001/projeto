@@ -1,8 +1,8 @@
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUserApi, updateUsers } from "../../../API/cobranca";
 import Header from "../../../primario/header";
+import { getUserApi, updateUsers } from "../../../API/users";
  export interface Personup {
   id: number;
   name: string;

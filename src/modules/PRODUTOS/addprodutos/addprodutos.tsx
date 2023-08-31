@@ -1,6 +1,6 @@
 import { Field, Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import React, { useState } from 'react';
-import { addProductsAPI } from '../../../API/cobranca';
+import { addProductsAPI } from '../../../API/products';
 import Header from '../../../primario/header';
 import { toast } from 'react-toastify';
 
@@ -8,6 +8,7 @@ export interface Product {
   name: string;
   description: string;
   price: number;
+  images:string;
 }
 
 const ProductForm: React.FC = () => {
@@ -16,6 +17,7 @@ const ProductForm: React.FC = () => {
         name: "",
         description: "",
         price:0, 
+        images: ""
       };
   const handleSubmit= async (form :Product)=>{
     try {
@@ -65,11 +67,11 @@ const ProductForm: React.FC = () => {
                       />
                     </div>
                     <div className="mb-4">
-                      <label htmlFor="image" className="block text-sm font-medium text-gray-700">Imagem</label>
+                      <label htmlFor="images" className="block text-sm font-medium text-gray-700">Imagem (  Adicione uma URL)</label>
                       <Field
-                        type="file"
-                        id="image"
-                        name="image"
+                        type="text"
+                        id="images"
+                        name="images"
                         className="mt-1 p-2 border w-full rounded"
                       />
                     </div>
