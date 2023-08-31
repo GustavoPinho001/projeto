@@ -1,67 +1,93 @@
+import React, { useState } from "react";
 import { Field, Form, Formik } from "formik";
-import { Person } from "../cadastro/cadastro";
-import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../../API/users";
+import { Person } from "../cadastro/cadastro";
 
 const Login = () => {
-    const[newLogin, setNewLogin]=useState()
-    const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-    const valoresIniciais:any = {
-        id: "",
-        name: "",
-        email: "",
-        senha: "",
-      };
+  const initialValues = {
+    name:"",
+    email: "",
+    senha: "",
+  };
 
-      const toCad =()=>{
-        navigate('/cadastro')
-      }
-      const hundleLogin = async (form : Person) => {
-        try {
-            const response = await login(form);            
-            toast.success ('logado com sucesso');
-            // window.location.replace('/')
-            navigate('/')
-            localStorage.setItem("token", response.token);
-          } catch (error) {
-            console.log(error);
-            toast.error('deu ruim');
-        }
-      }
+  const handleLogin = async (form: Person) => {
+    setIsLoading(true);
+    try {
+      const response = await login(form);
+      toast.success("Login realizado com sucesso!");
+      navigate("/");
+      localStorage.setItem("token", response.token);
+    } catch (error) {
+      console.log(error);
+      toast.error("Algo deu errado ao fazer o login.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  const toCadastro = () => {
+    navigate("/cadastro");
+  };
 
   return (
-    <div className="bg-slate-600 h-screen w-screen flex items-center justify-center">
-      <Formik initialValues={valoresIniciais} onSubmit={ hundleLogin }>
-        <Form className="flex flex-col justify-around gap-3">
-          <label htmlFor="email">E-mail</label>
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <Formik initialValues={initialValues} onSubmit={handleLogin}>
+        <Form className="bg-white p-8 rounded shadow-md w-96">
+          <h1 className="text-2xl font-semibold text-center mb-4">
+            Bem-vindo de volta!
+          </h1>
+          <label className="text-gray-700 block mb-2" htmlFor="email">
+            E-mail
+          </label>
           <Field
-            className="border border-gray-900 p-2 text-center rounded-md bg-transparent "
+            className="border p-2 rounded w-full focus:outline-none"
             type="email"
             required
             id="email"
             name="email"
+            placeholder="Digite seu e-mail"
           />
-          <label htmlFor="senha">senha</label>
-
+          <label className="text-gray-700 block mt-4 mb-2" htmlFor="senha">
+            Senha
+          </label>
           <Field
-            className="border border-gray-900 p-2 text-center rounded-md bg-transparent "
+            className="border p-2 rounded w-full focus:outline-none"
             type="password"
             required
             id="senha"
             name="senha"
+            placeholder="Digite sua senha"
           />
-          <button className="border p-2 rounded-md" type="submit">Enviar</button>
-          <button className="border p-2 rounded-md" onClick={toCad} >Cadastrar-se</button>
-
-          </Form>
+          <button
+            className="mt-6 bg-red-500 text-white p-2 rounded w-full hover:bg-red-600 transition duration-300"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? "Carregando..." : "Fazer Login"}
+          </button>
+          <div className="flex justify-between mt-4">
+            <button
+              className="text-blue-500 hover:underline"
+              onClick={toCadastro}
+            >
+              Criar uma conta
+            </button>
+            <a
+              href="#"
+              className="text-blue-500 hover:underline"
+            >
+              Esqueceu a senha?
+            </a>
+          </div>
+        </Form>
       </Formik>
-          
     </div>
   );
 };
-export default Login
+
+export default Login;

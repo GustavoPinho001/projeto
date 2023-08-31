@@ -36,7 +36,7 @@ const ProductForm: React.FC = () => {
             <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow">
               <h2 className="text-xl font-semibold mb-4">Cadastrar Produto</h2>
               <Formik initialValues={valoresIniciais} onSubmit={handleSubmit}>
-                  <Form >
+                  <Form>
                     <div className="mb-4">
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nome</label>
                       <Field

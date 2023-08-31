@@ -1,131 +1,118 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import "./Scrollbar.css";
-import Header from "../../../primario/header";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
 import { toast } from "react-toastify";
-import Logo from "../../../primario/logo";
 import { createUser } from "../../../API/users";
 
 export interface Person {
-  id: string | number;
   name: string;
   email: string;
-  senha: string;
+  senha:string
 }
 
 const Cadastro: React.FC = () => {
-  //------------------------------------------------------
   const [load, setLoad] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
-  const valoresIniciais: Person = {
-    id: "",
+  const initialValues = {
     name: "",
     email: "",
     senha: "",
   };
 
-
-  const toLog= ()=>{
-    navigate('/login')
-  }
+  const toLog = () => {
+    navigate("/login");
+  };
 
   const handleSub = async (form: Person) => {
     setLoad(true);
-    const newPerson: Person = await createUser(form)
-      .then((person) => {
-        toast.success("Usuario criado com sucesso");
-        setLoad(false);
-        return person;
-      })
-      .catch(() => {
-        toast.error("deu ruim");
-        setLoad(false);
-      });
+    try {
+      const newPerson = await createUser(form);
+      toast.success("Usuário criado com sucesso");
+      setLoad(false);
+    } catch (error) {
+      toast.error("Algo deu errado");
+      setLoad(false);
+    }
   };
-  //------------------------------------------------------
 
-  //------------------------------------------------------
+  const toggleDarkMode = () => {
+    setDarkMode((prevMode) => !prevMode);
+  };
+
   return (
-    <>
-      <div className="h-screen flex flex-col justify-between">
-        <div className="flex h-[100%] items-center  ">
-          <section className="flex w-[50%]  h-[100%] bg-[#000000cc] justify-around items-center rounded-lg flex-col ">
-            <Logo />
-          </section>
-          <section className=" w-[50%] h-[100%] p-10 items-center justify-center rounded-lg flex flex-col gap-7 bg-[#ddddffcc] py-16">
-            <div className=" text-center text-slate-900 text-3xl">
-              <h1>Cadastre-se</h1>
-            </div>
-            <Formik initialValues={valoresIniciais} onSubmit={handleSub}>
-              <Form className="flex flex-col font-medium text-xl  text-black gap-5">
-                <div className="flex justify-around gap-4">
-                  <div>
-                    <label htmlFor="name">name </label>
-                  </div>
-                  <div>
-                    <Field
-                      className="border border-gray-900 p-2 text-center rounded-md bg-transparent "
-                      type="text"
-                      required
-                      id="name"
-                      name="name"
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-around gap-4">
-                  <div>
-                    <label htmlFor="email" className="">
-                      Email
-                    </label>
-                  </div>
-                  <div>
-                    {" "}
-                    <Field
-                      className="border border-gray-900 text-center p-2 rounded-md bg-transparent "
-                      type="email"
-                      id="email"
-                      required
-                      name="email"
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-around gap-4">
-                  <div>
-                    <label htmlFor="senha" className="">
-                      senha
-                    </label>
-                  </div>
-                  <div>
-                    <Field
-                      className="border border-gray-900 text-center p-2 rounded-md bg-transparent "
-                      type="password"
-                      id="senha"
-                      required
-                      name="senha"
-                    />
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  disabled={load}
-                  className="border text-white rounded-md p-2 bg-[#000000cc] hover:bg-slate-700"
-                >
-                  Enviar
-                </button>
-                <button onClick={toLog} className="border text-white rounded-md p-2 bg-[#000000cc] hover:bg-slate-700">back tolog-in</button>
-              </Form>
-            </Formik>
-          </section>
+    <div className={`bg-${darkMode ? "gray-900" : "gray-100"} min-h-screen flex flex-col justify-center items-center transition-colors duration-300`}>
+      <section className={`w-full h-[60%] sm:h-[40%] p-6 flex flex-col justify-center items-center bg-${darkMode ? "gray-800" : "white"}`}>
+        <div className={`text-center text-${darkMode ? "white" : "gray-800"} text-2xl sm:text-3xl mb-4`}>
+          <h1>Crie uma conta</h1>
         </div>
-        <footer className="bg-gray-900 text-white py-8">
-          <div className="container mx-auto text-center">
-            &copy; 2023 melhorzin que ta teno mas o zoro sola.
-          </div>
-        </footer>
-      </div>
-    </>
+        <Formik initialValues={initialValues} onSubmit={handleSub}>
+          <Form className="w-full max-w-md flex flex-col gap-4">
+            <div>
+              <label htmlFor="name" className={`text-${darkMode ? "white" : "gray-800"} font-semibold mb-1`}>
+                Nome completo
+              </label>
+              <Field
+                className={`border p-2 rounded-md bg-${darkMode ? "gray-800" : "gray-200"} w-full text-${darkMode ? "white" : "gray-800"}`}
+                type="text"
+                required
+                id="name"
+                name="name"
+                placeholder="John Doe"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className={`text-${darkMode ? "white" : "gray-800"} font-semibold mb-1`}>
+                Email
+              </label>
+              <Field
+                className={`border p-2 rounded-md bg-${darkMode ? "gray-800" : "gray-200"} w-full text-${darkMode ? "white" : "gray-800"}`}
+                type="email"
+                id="email"
+                required
+                name="email"
+                placeholder="johndoe@example.com"
+              />
+            </div>
+            <div>
+              <label htmlFor="senha" className={`text-${darkMode ? "white" : "gray-800"} font-semibold mb-1`}>
+                senha
+              </label>
+              <Field
+                className={`border p-2 rounded-md bg-${darkMode ? "gray-800" : "gray-200"} w-full text-${darkMode ? "white" : "gray-800"}`}
+                type="password"
+                id="senha"
+                required
+                name="senha"
+                placeholder="Your Password"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={load}
+              className={`bg-${darkMode ? "blue-600" : "red-500"} text-white rounded-md p-2 hover:bg-${darkMode ? "blue-700" : "red-600"} transition duration-300`}
+            >
+              Cadastrar
+            </button>
+            <p>ja tem uma conta?<Link to={"/login"} className="text-blue-600">Log in</Link></p>
+          </Form>
+        </Formik>
+        <button
+          onClick={toggleDarkMode}
+          className={`absolute top-4 right-4 p-2 rounded-full bg-${darkMode ? "gray-800" : "gray-200"} text-${darkMode ? "white" : "gray-800"} hover:bg-${darkMode ? "gray-600" : "gray-300"} transition duration-300`}
+        >
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
+      </section>
+    </div>
   );
 };
 
 export default Cadastro;
+
+
+
+
+
+
+
