@@ -39,7 +39,7 @@ const TelaUp = () => {
   return (
     <div >
       <Header/>
-      <div className=" ">
+      <div className=" bg-gray-700 flex justify-center items-center h-[93.7vh]">
         <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
         
             <h2 className="text-2xl mb-4">Atualização de Login</h2>

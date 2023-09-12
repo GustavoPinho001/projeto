@@ -49,6 +49,7 @@ const Inscritos = () => {
     const response = await deleteUser(id)
       .then((response) => {
         toast.success("usuario deletado");
+        
 
         return response;
       })

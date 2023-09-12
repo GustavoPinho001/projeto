@@ -3,11 +3,11 @@ import Header from '../../primario/header';
 
 const ContactPage: React.FC = () => {
   return (
-    <div>
+    <div className="bg-gray-700">
       <Header/>
-      <div className="h-[91vh] flex items-center justify-center">
+      <div className="h-[93.7vh] flex items-center justify-center">
       
-      <div className="w-1/5 p-5 bg-opacity-80  backdrop-blur-sm rounded-md shadow-md">
+      <div className="w-1/5 p-5 bg-opacity-80 border  backdrop-blur-sm rounded-sm  shadow-md">
         <h1 className="text-2xl text-white font-semibold mb-4">Entre em Contato</h1>
         <form>
           <div className="mb-4">

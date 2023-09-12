@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Header from "../../../primario/header";
 import {
@@ -16,6 +17,7 @@ export interface PoductUP {
   images: string
 }
 const UpProduct = () => {
+  const navigate =useNavigate()
   const [values, setValues] = useState<PoductUP>({
     id: 0,
     price: "",
@@ -28,10 +30,13 @@ const UpProduct = () => {
   console.log(id);
 
   const deleteProduct = async () => {
-    const response = await deleteThisProduct(id as string);
+    const response = await deleteThisProduct(id as string)
+    navigate('/produtos')
+
   };
 
   async function submit(params: PoductUP) {
+    navigate('/produtos')
     console.log(params);
     const response = await updateProducts(params);
   }

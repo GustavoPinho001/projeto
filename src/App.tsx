@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Home from "./modules/Home/home";
 import Cadastro from "./modules/USUARIOS/cadastro/cadastro";
-import NotFound from "./modules/error/NotFound";
+import NotFound from "./modules/Home/error/NotFound";
 import Login from "./modules/USUARIOS/loginTela/login";
 import PrivateRoute from "./modules/private";
 import ContactPage from "./modules/contato/contato";
