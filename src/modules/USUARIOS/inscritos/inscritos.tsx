@@ -36,7 +36,7 @@ const Inscritos = () => {
 
   const getUser = async () => {
     try {
-      const response = await getAllUsers();
+      const response: any = await getAllUsers();
       console.log(response); // Verifique os dados da API
       setPeoples(response);
     } catch (error) {

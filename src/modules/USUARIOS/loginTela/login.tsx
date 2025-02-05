@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ const Login = () => {
   const handleLogin = async (form: Person) => {
     setIsLoading(true);
     try {
-      const response = await login(form);
+      const response :any = await login(form);
       toast.success("Login realizado com sucesso!");
       navigate("/");
       localStorage.setItem("token", response.token);

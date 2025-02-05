@@ -17,9 +17,9 @@ const Home = (): JSX.Element => {
   };
 
   return (
-    <div className="bg-gray-700">
+    <div className="bg-gray-700 h-screen w-screen">
       <Header />
-      <div className="min-h-[93.7vh] flex flex-col justify-between">
+      <div className="h-[90%] w-full flex flex-col justify-between">
         <section className="flex w-[50%] justify-around mb-16 mt-16 flex-col items-center">
           <div className="text-white text-center">
             <h1 className="text-4xl font-bold">
@@ -33,8 +33,8 @@ const Home = (): JSX.Element => {
         </section>
         <hr />
         <section className="bg-[#ddddffcc] py-16">
-          <div className="container mx-auto">
-            <h2 className="text-2xl font-bold mb-4">APIS</h2>
+          <div className="container mx-auto p-4">
+            <h2 className="text-2xl font-bold mb-4">Consumo de APIS</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
               <button
                 onClick={toSubscribers}

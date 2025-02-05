@@ -1,6 +1,6 @@
 import { Field, Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { addProductsAPI } from '../../../API/products';
 import Header from '../../../primario/header';
 import { toast } from 'react-toastify';
