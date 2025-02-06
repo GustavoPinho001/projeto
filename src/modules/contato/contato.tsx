@@ -1,36 +1,103 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../../primario/header';
+import { Field, Form, Formik } from 'formik';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { createUser } from '../../API/users';
+import { Person } from '../USUARIOS/cadastro/cadastro';
 
 const ContactPage: React.FC = () => {
-  return (
-    <div className="bg-gray-700">
-      <Header/>
-      <div className="h-[93.7vh] flex items-center justify-center">
-      
-      <div className="w-1/5 p-5 bg-opacity-80 border  backdrop-blur-sm rounded-sm  shadow-md">
-        <h1 className="text-2xl text-white font-semibold mb-4">Entre em Contato</h1>
-        <form>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-white font-medium mb-2">Nome</label>
-            <input type="text" id="name" name="name" className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-white font-medium mb-2">E-mail</label>
-            <input type="email" id="email" name="email" className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="message" className="block text-white font-medium mb-2">Mensagem</label>
-            <textarea id="message" name="message" rows={4} className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300"></textarea>
-          </div>
-          <button
-            type="submit"
-            className="relative bg-black text-white px-4 py-2 rounded-md hover:bg-opacity-70 backdrop-blur-sm focus:ring focus:ring-blue-300"
-          >
-            Enviar
-          </button>
-        </form>
-      </div>
-      </div>
+  const [load, setLoad] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);  
+  const initialValues = {
+    name: "",
+    email: "",
+    senha: "",
+  };
+  
+  const handleSub = async (form: Person) => {
+    setLoad(true);
+    try {
+      const newPerson = await createUser(form);
+      toast.success("Usuário criado com sucesso");
+      setLoad(false);
+    } catch (error) {
+      toast.error("Algo deu errado");
+      setLoad(false);
+    }
+  };
+  const toggleDarkMode = () => {
+    setDarkMode((prevMode) => !prevMode);
+  };
+ return (
+    <div className={`bg-${darkMode ? "gray-900" : "gray-100"} min-h-screen flex flex-col justify-center items-center transition-colors duration-300`}>
+     <section className={`w-full h-[60%] sm:h-[40%] p-6 flex flex-col justify-center items-center bg-${darkMode ? "gray-800" : "white"}`}>
+             <div className={`text-center text-${darkMode ? "white" : "gray-800"} text-2xl sm:text-3xl mb-4`}>
+               <h1>Envie uma mensagem</h1>
+             </div>
+             <Formik initialValues={initialValues} onSubmit={handleSub}>
+               <Form className="w-full max-w-md flex flex-col gap-4">
+                 <div>
+                   <label htmlFor="name" className={`text-${darkMode ? "white" : "gray-800"} font-semibold mb-1`}>
+                     Nome completo
+                   </label>
+                   <Field
+                     className={`border p-2 rounded-md bg-${darkMode ? "gray-800" : "gray-200"} w-full text-${darkMode ? "white" : "gray-800"}`}
+                     type="text"
+                     required
+                     id="name"
+                     name="name"
+                     placeholder="insira seu nome"
+                   />
+                 </div>
+                 <div>
+                   <label htmlFor="email" className={`text-${darkMode ? "white" : "gray-800"} font-semibold mb-1`}>
+                     Email
+                   </label>
+                   <Field
+                     className={`border p-2 rounded-md bg-${darkMode ? "gray-800" : "gray-200"} w-full text-${darkMode ? "white" : "gray-800"}`}
+                     type="email"
+                     id="email"
+                     required
+                     name="email"
+                     placeholder="johndoe@example.com"
+                   />
+                 </div>
+                 <div>
+                   <label htmlFor="mensagem" className={`text-${darkMode ? "white" : "gray-800"} font-semibold mb-1`}>
+                     Mensagem
+                   </label>
+                   <Field
+                     className={`border p-2 rounded-md bg-${darkMode ? "gray-800" : "gray-200"} w-full text-${darkMode ? "white" : "gray-800"}`}
+                     type="mensagem"
+                     id="mensagem"
+                     required
+                     name="mensagem"
+                     placeholder="Your Password"
+                   />
+                 </div>
+                 <button
+                   type="submit"
+                   disabled={load}
+                   className={`bg-${darkMode ? "blue-600" : "red-500"} text-white rounded-md p-2 hover:bg-${darkMode ? "blue-700" : "red-600"} transition duration-300`}
+                 >
+                   enviar
+                 </button>
+               </Form>
+             </Formik>
+             <div className='flex w-full justify-around'>
+              <button
+
+                onClick={toggleDarkMode}
+                className={`absolute top-4 right-4 p-2 rounded-full bg-${darkMode ? "gray-800" : "gray-200"} text-${darkMode ? "white" : "gray-800"} hover:bg-${darkMode ? "gray-600" : "gray-300"} transition duration-300`}
+              >
+                {darkMode ? "Light Mode" : "Dark Mode"}
+              </button>
+              <a href="">whatsap</a>
+              <a href="https://www.instagram.com/" target='_blank'>instagram</a>
+              <a href="">facebook</a>
+             </div>
+           </section>
     </div>
   );
 };

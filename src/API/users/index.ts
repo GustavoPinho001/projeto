@@ -31,7 +31,7 @@ export async function createUser({ name, senha, email }: Person) {
     return response.data;
   }
   
-  export async function updateUsers({ name, senha, email, id }: Person) {
+  export async function updateUsers({ name, senha, email, id}: Person) {
     const response = await apiBase.put(`/user/${id}`, {
       name: name,
       senha: senha,
